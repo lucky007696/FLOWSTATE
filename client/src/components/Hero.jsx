@@ -142,7 +142,7 @@ export default function Hero() {
           <dl className="mt-12 flex gap-10 text-sm">
             <StatItem
               srLabel="Projects shipped across all categories"
-              value={60}
+              value={45}
               suffix="+"
               label="Projects shipped"
             />
