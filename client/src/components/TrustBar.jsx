@@ -21,11 +21,12 @@ export default function TrustBar() {
         <p className="text-xs text-slate-500 mb-4 text-center sm:text-left">
           Work shipped for teams across fintech, SaaS, manufacturing, and retail
         </p>
-        <div className="flex flex-wrap justify-center sm:justify-start gap-x-10 gap-y-3">
+        {/* Mobile: vertical stack. Desktop: horizontal wrap */}
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:gap-x-10 gap-y-2 sm:gap-y-3">
           {TRUST.map((t) => (
-            <span key={t.label} className="font-mono text-sm text-slate-400">
+            <span key={t.label} className="font-mono text-sm text-slate-400 flex items-center gap-1">
               {t.label}
-              <span className="text-slate-600"> — {t.detail}</span>
+              <span className="hidden sm:inline text-slate-600"> — {t.detail}</span>
             </span>
           ))}
         </div>
