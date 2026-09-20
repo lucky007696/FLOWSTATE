@@ -17,6 +17,9 @@ import Footer from "./components/Footer.jsx";
 import WhatsAppButton from "./components/WhatsAppButton.jsx";
 import Admin from "./pages/Admin.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import AutomationPage from "./pages/AutomationPage.jsx";
+import WebDevelopmentPage from "./pages/WebDevelopmentPage.jsx";
+import AiMlPage from "./pages/AiMlPage.jsx";
 
 /**
  * React.lazy code splitting — CaseStudy is only fetched on /work/:slug navigation.
@@ -50,6 +53,9 @@ export default function App() {
     <ErrorBoundary>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/automation" element={<AutomationPage />} />
+        <Route path="/web-development" element={<WebDevelopmentPage />} />
+        <Route path="/ai-ml" element={<AiMlPage />} />
         <Route path="/admin" element={<Admin />} />
         {/* Item 2 + 12: Case study route, lazily loaded */}
         <Route

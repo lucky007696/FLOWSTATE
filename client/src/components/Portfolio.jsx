@@ -38,7 +38,7 @@ function SkeletonCard() {
  * Item 3: Descriptive aria-labels on interactive elements.
  * Item 8: Loading skeleton cards + empty state.
  */
-export default function Portfolio() {
+export default function Portfolio({ categories }) {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadedFromApi, setLoadedFromApi] = useState(false);
@@ -47,20 +47,29 @@ export default function Portfolio() {
     api
       .getProjects()
       .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProjects(data);
-          setLoadedFromApi(true);
-        } else {
-          setProjects(FALLBACK_PROJECTS);
+        let projectsList = Array.isArray(data) && data.length > 0 ? data : FALLBACK_PROJECTS;
+        
+        if (categories && categories.length > 0) {
+          projectsList = projectsList.filter(p => categories.includes(p.category));
         }
+
+        if (Array.isArray(data) && data.length > 0) {
+          setLoadedFromApi(true);
+        }
+
+        setProjects(projectsList);
         setLoading(false);
       })
       .catch(() => {
         // API not running yet — fall back to sample data silently.
-        setProjects(FALLBACK_PROJECTS);
+        let projectsList = FALLBACK_PROJECTS;
+        if (categories && categories.length > 0) {
+          projectsList = projectsList.filter(p => categories.includes(p.category));
+        }
+        setProjects(projectsList);
         setLoading(false);
       });
-  }, []);
+  }, [categories]);
 
   return (
     <section id="portfolio" aria-labelledby="portfolio-heading" className="bg-slate-100 py-24">

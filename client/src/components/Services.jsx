@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Reveal from "./Reveal.jsx";
 
 /**
@@ -10,11 +11,13 @@ const SERVICES = [
     tag: "AI",
     title: "AI Solutions",
     desc: "We embed AI into existing products: classification, extraction, summarisation, and copilot features that reduce the work a human has to do per task.",
+    route: "/ai-ml"
   },
   {
     tag: "AUTOMATION",
     title: "Automation",
     desc: "We replace manual, rule-based work with scripts and bots that run without intervention — document processing, ticket routing, invoice matching.",
+    route: "/automation"
   },
   {
     tag: "WEB3",
@@ -45,6 +48,7 @@ const SERVICES = [
     tag: "WEB",
     title: "Web Applications",
     desc: "We build full-stack MERN apps from schema to deployment — admin dashboards, customer portals, marketplaces, internal tools.",
+    route: "/web-development"
   },
 ];
 
@@ -71,6 +75,11 @@ export default function Services() {
             <p className="font-mono text-xs text-rust-700">{s.tag}</p>
             <h3 className="mt-2 text-lg font-medium text-slate-900">{s.title}</h3>
             <p className="mt-1 text-slate-600 text-sm">{s.desc}</p>
+            {s.route && (
+              <Link to={s.route} className="inline-block mt-4 text-xs font-mono text-rust-600 hover:text-rust-700 transition-colors">
+                Learn more →
+              </Link>
+            )}
           </Reveal>
         ))}
       </div>
