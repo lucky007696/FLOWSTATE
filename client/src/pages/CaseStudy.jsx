@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client.js";
 
 // ⚠️  TODO before launch: set VITE_BOOKING_URL in client/.env.
@@ -122,6 +122,7 @@ function SkeletonCase() {
 
 export default function CaseStudy() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -152,13 +153,13 @@ export default function CaseStudy() {
       {/* Back navigation */}
       <div className="border-b border-ink-700 bg-ink-950/95 backdrop-blur sticky top-0 z-20">
         <div className="max-w-4xl mx-auto px-6 h-14 flex items-center">
-          <Link
-            to="/#portfolio"
+          <button
+            onClick={() => navigate(-1)}
             className="font-mono text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2"
-            aria-label="Back to all work"
+            aria-label="Back to previous page"
           >
-            ← Work
-          </Link>
+            ← Back
+          </button>
         </div>
       </div>
 
@@ -169,12 +170,12 @@ export default function CaseStudy() {
           <div role="alert" className="text-center py-20">
             <p className="font-mono text-rust-600 mb-4">// 404</p>
             <h1 className="font-mono text-2xl mb-4">{error}</h1>
-            <Link
-              to="/#portfolio"
+            <button
+              onClick={() => navigate(-1)}
               className="text-slate-400 hover:text-white underline text-sm transition-colors"
             >
-              View all projects →
-            </Link>
+              Go back →
+            </button>
           </div>
         )}
 
