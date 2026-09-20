@@ -1,0 +1,32 @@
+# Item 20: Render deployment config for the FlowState API server.
+# https://render.com/docs/yaml-spec
+#
+# Usage:
+#   1. Push this file to your repo root (or server/).
+#   2. In the Render dashboard, connect your repo — Render auto-detects render.yaml.
+#   3. Set the secret env vars (MONGODB_URI, SMTP_PASS, etc.) in the Render UI
+#      under Environment → Secret Files, NOT in this file.
+
+services:
+  - type: web
+    name: flowstate-api
+    runtime: node
+    region: oregon          # change to your preferred region
+    plan: free              # upgrade to starter ($7/mo) for always-on
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5000"
+      # Set these as secret env vars in the Render dashboard:
+      # MONGODB_URI      — your MongoDB Atlas connection string
+      # CORS_ORIGINS     — e.g. https://flowstate-client.vercel.app
+      # SMTP_HOST        — e.g. smtp.sendgrid.net
+      # SMTP_PORT        — e.g. 587
+      # SMTP_USER        — e.g. apikey (SendGrid) or you@gmail.com (Gmail)
+      # SMTP_PASS        — your SMTP password or API key
+      # NOTIFY_TO        — email address to receive contact notifications

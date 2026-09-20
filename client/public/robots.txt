@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Item 10: Sitemap location — update the domain to your production URL
+Sitemap: https://flowstate.dev/sitemap.xml

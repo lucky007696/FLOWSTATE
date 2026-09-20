@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F7F5F0; /* paper */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Item 14/15: System dark-mode support ───────────────
+   The site uses section-level colour alternation (dark hero ↔ cream
+   sections) rather than a single app background, so a full interactive
+   toggle would require replacing ~30 per-section Tailwind classes with
+   CSS variables — too invasive for a safe audit.
+
+   Instead, we honour prefers-color-scheme: dark at the body level:
+   cream "paper" sections become a dark neutral so dark-mode OS users
+   don't see a jarring bright background.
+   Dark (ink-950) sections are already correct and need no change.
+─────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  /* Invert the cream body background to a dark neutral */
+  body {
+    background-color: #0F172A; /* slate-900 — dark but not as deep as ink-950 */
+  }
+
+  /*
+   * bg-slate-100 sections (Services, Portfolio, FAQ) get a subtle
+   * dark surface so they still read as visually distinct from ink-950 sections.
+   */
+  .bg-slate-100 {
+    background-color: #1E293B !important; /* slate-800 */
+  }
+
+  /* Light card backgrounds in the portfolio grid */
+  .bg-white {
+    background-color: #1E293B !important;
+    border-color: #334155 !important;
+  }
+
+  /* Text that was near-black now reads against dark backgrounds */
+  .text-slate-900 {
+    color: #F1F5F9 !important;
+  }
+  .text-slate-700 {
+    color: #CBD5E1 !important;
+  }
+  .text-slate-600 {
+    color: #94A3B8 !important;
+  }
+}
+
+/* ─── Item 15: Consistent spacing utilities ─────────────
+   All sections use py-24 (96px top/bottom).
+   All section headings use font-mono text-2xl (h2).
+   All card sub-headings use font-medium text-base (h3).
+   Body text uses text-sm (14px) or text-base (16px).
+   These are documented here so future components stay consistent.
+─────────────────────────────────────────────────────── */
+
+/* ─── Accessibility: reduced motion ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    /* Also zero stagger delays so cards don't appear at wrong timing */
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ─── Item 12: Card hover lift ───────────────────────
+   Only fires on devices with a fine pointer (mouse/trackpad).
+   Touch taps do NOT trigger :hover on mobile, so no tap-lift.
+─────────────────────────────────────────────────────── */
+@media (hover: hover) {
+  .portfolio-card {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.10);
+  }
+
+  .pricing-card {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.10);
+  }
+}
